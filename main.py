@@ -52,6 +52,9 @@ chargers = [
 
 rev = Player(p_imgs)
 
+def endgame():
+  i=1/0
+
 pygame.init()
 pygame.display.set_caption('Hello World!')
 experation_date = time()
@@ -72,10 +75,12 @@ while True:
     if (shoot):
       x, y = pygame.mouse.get_pos()
       angle = getAngle(x,y)
-      x_vel = 20 * cos(angle)
-      y_vel = 20 * sin(angle)
+      print(x,y,angle)
+      x_vel = 2*rev.vel[0]#10 * cos(angle)
+      y_vel = 2*rev.vel[1]#10 * sin(angle)
+      print("PEW")
       chargers += [
-        Laser(laser_img, x_vel, y_vel, (t := rev.getPosition())[0], t[1])
+        Laser(laser_img,x_vel, y_vel, (t := rev.getPosition())[0], t[1])
       ]
     for ship in chargers:
       # time, x_view, y_view, player_position, screen
@@ -84,8 +89,9 @@ while True:
         if ((s := ship.pos)[0] - 30) < (r := rev.getPosition(
         ))[0] < s[0] + 30 and s[1] - 30 < r[1] < s[1] + 30:
           print("ENDGAME")
-          pass  #i=1/0#endgame()
+          endgame()
       else:
+        # print("UPDATE")
         ship.update(chargers,screen)
 
     # pygame.display.update()
